@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import AddressBookForm from './component/formPage/AddressBookForm';
+import AddressBookHome from './component/homePage/AddressBookHome';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header className="header-content header">
+        <div className="logo-content">
+          <div>
+            <span className="emp-text">ADDRESS</span><br />
+            <span className="emp-text emp-payroll">BOOK</span>
+          </div>
+        </div>
       </header>
+
+      <Routes>
+        <Route path="/" element={<AddressBookHome />} />
+
+        <Route path="/form" element={<AddressBookForm />} />
+      </Routes>
+
     </div>
   );
 }
