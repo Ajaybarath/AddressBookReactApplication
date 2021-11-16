@@ -4,6 +4,7 @@ import editBtn from '../../asset/icons/create-black-18dp.svg'
 import deleBtn from '../../asset/icons/delete-black-18dp.svg'
 import addBtn from '../../asset/icons/add-24px.svg'
 import AddressBookService from '../../service/AddressBookService'
+import AddressBookForm from '../formPage/AddressBookForm'
 
 class AddressBookHome extends Component {
 
@@ -12,6 +13,8 @@ class AddressBookHome extends Component {
 
         this.state = {
             address: [],
+            editStatus: false,
+            idToEdit: '',
         }
 
         this.onEdit = this.onEdit.bind(this);
@@ -21,6 +24,11 @@ class AddressBookHome extends Component {
 
     onEdit(event) {
         console.log(event.target.id);
+        this.setState({
+            editStatus: true,
+            idToEdit: event.target.id,
+        })
+
 
     }
 
@@ -31,20 +39,25 @@ class AddressBookHome extends Component {
             AddressBookService.getAddressBook()
                 .then(res => {
                     console.log(res.data);
-                    this.setState({ address: res.data.data })
-                }) 
+                    this.setState({ address: res.data })
+                })
         })
     }
 
     componentDidMount() {
         AddressBookService.getAddressBook()
             .then(res => {
-                console.log(res.data.data);
-                this.setState({ address: res.data.data })
+                console.log(res.data);
+                this.setState({ address: res.data })
             })
     }
 
     render() {
+
+        if (this.state.editStatus == true) {
+            return <AddressBookForm addressId={this.state.idToEdit} />
+        }
+
         return (
             <div>
                 <div className="main-content">
