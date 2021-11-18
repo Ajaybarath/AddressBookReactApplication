@@ -2,31 +2,26 @@ import axios from 'axios';
 import React from 'react';
 
 class AddressBookService extends React.Component {
-    baseUrl = `http://localhost:3000/addressbook`;
+    baseUrl = `http://localhost:8080/addressBook/`;
 
     addAddress = (data) => {
-        console.log(data)
-        return axios.post(this.baseUrl , data)
+        return axios.post(this.baseUrl + 'create' , data)
     }
 
     getAddressBook = () => {
-        console.log("getting data");
         return axios.get(this.baseUrl)
     }
 
     getAddressById = (id) => {
-        console.log("getting data by id");
-        return axios.get(this.baseUrl + '/' + id)
+        return axios.get(this.baseUrl + 'get/' + id)
     }
 
     updateAddress = (data, id) => {
-        console.log(data);
-        return axios.put(this.baseUrl + '/' + id, data)
+        return axios.put(this.baseUrl + 'update/' + id, data)
     }
 
     deleteAddress = (data) => {
-        console.log(data);
-        return axios.delete(this.baseUrl + '/'+ data)
+        return axios.delete(this.baseUrl + 'delete/'+ data)
     }
  }
 
