@@ -22,19 +22,17 @@ class AddressBookForm extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
         this.setState({ id: this.props.addressId })
 
         AddressBookService.getAddressById(this.props.addressId)
             .then(res => {
-                console.log(res.data.data);
                 this.setState({
-                    name: res.data.name,
-                    address: res.data.address,
-                    city: res.data.city,
-                    state: res.data.state,
-                    zip: res.data.zip,
-                    phone: res.data.phone
+                    name: res.data.data.name,
+                    address: res.data.data.address,
+                    city: res.data.data.city,
+                    state: res.data.data.state,
+                    zip: res.data.data.zip,
+                    phone: res.data.data.phone
                 })
             })
     }
@@ -54,7 +52,6 @@ class AddressBookForm extends Component {
         if (this.state.id) {
             AddressBookService.updateAddress(object, this.state.id)
                 .then(res => {
-                    console.log(res)
                     alert("updated succeddfully")
                     this.setState({
                         name: '',
@@ -71,7 +68,6 @@ class AddressBookForm extends Component {
         else {
             AddressBookService.addAddress(object)
                 .then(res => {
-                    console.log(res)
                     alert("saved succeddfully")
                     this.setState({
                         name: '',
@@ -81,15 +77,14 @@ class AddressBookForm extends Component {
                         zip: '',
                         phone: '',
                         nameError: '',
-                        isUpdated: true,
                     })
+                    this.onReset();
                 })
         }
 
     }
 
     onReset() {
-        console.log("reset clicked")
         this.setState({
             name: '',
             address: '',
@@ -111,7 +106,6 @@ class AddressBookForm extends Component {
         }
 
         this.setState({ [event.target.name]: event.target.value });
-        console.log(event.target.name);
     }
 
     render() {

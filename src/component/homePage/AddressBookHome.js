@@ -23,7 +23,6 @@ class AddressBookHome extends Component {
     }
 
     onEdit(event) {
-        console.log(event.target.id);
         this.setState({
             editStatus: true,
             idToEdit: event.target.id,
@@ -33,13 +32,10 @@ class AddressBookHome extends Component {
     }
 
     onDelete(event) {
-        console.log(event.target.id);
         AddressBookService.deleteAddress(event.target.id).then(res => {
-            console.log("deleted successfully")
             AddressBookService.getAddressBook()
                 .then(res => {
-                    console.log(res.data);
-                    this.setState({ address: res.data })
+                    this.setState({ address: res.data.data })
                 })
         })
     }
@@ -47,8 +43,7 @@ class AddressBookHome extends Component {
     componentDidMount() {
         AddressBookService.getAddressBook()
             .then(res => {
-                console.log(res.data);
-                this.setState({ address: res.data })
+                this.setState({ address: res.data.data })
             })
     }
 
